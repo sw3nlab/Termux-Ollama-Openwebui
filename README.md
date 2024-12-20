@@ -16,7 +16,7 @@ Script to install and use ollama and open webui from termux
 
 ## Usage:
 Just execute the ollama.sh to start both servers.
-If you don't want to expose your ollama server to LAN, you can remove the OLLAMA_HOST:0.0.0.0 line at the begining of the ollama.sh script (recommended if you're only gonna use it on your device)
+If you want to expose your ollama server to LAN, you can add export OLLAMA_HOST=0.0.0.0 at the begining of the ollama.sh script
 
 ## How to stop ollama and webui?
 pkill ollama && pkill webui
