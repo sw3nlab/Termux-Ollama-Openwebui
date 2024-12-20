@@ -2,7 +2,8 @@
 
 apt update && apt install proot-distro -y
 pd install --override-alias ollama ubuntu
-pd login ollama -- apt update && apt upgrade -y
+pd login ollama -- apt update
+pd login ollama -- apt upgrade -y
 pd login ollama -- wget https://ollama.com/install.sh
 pd login ollama -- bash /root/install.sh
 pd login ollama -- curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh
