@@ -20,3 +20,6 @@ If you want to expose your ollama server to LAN, you can add export OLLAMA_HOST=
 
 ## How to stop ollama and webui?
 pkill ollama && pkill webui
+
+## Uninstall
+pd remove ollama
