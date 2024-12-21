@@ -46,7 +46,6 @@ while true; do
                 case $choice in
                     1)
                         echo "Starting Ollama..."
-                        export OLLAMA_HOST=0.0.0.0
                         pd login ollama -- ollama serve &
                         ;;
                     2)
