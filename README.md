@@ -30,7 +30,7 @@ And change it for this:
                         ;;
 
 big-AGI: localhost:8081
-open-webui: localhost:8080
+open-webui: localhost:8082
 oobabooga: localhost:7860
 ollama: localhost:11434
 
