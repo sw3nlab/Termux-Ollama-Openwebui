@@ -1,5 +1,5 @@
-# Termux-ollama-openwebui
-Script to install and use ollama and open webui from termux
+# Termux-ollama-openwebui-big-AGI-oobabooga
+Script to install and use ollama, open webui, big-AGI and oobabooga from termux
 
 ## Installation:
   1.  Clone the repo and give execution permissions to the installer.sh script:
@@ -11,15 +11,24 @@ Script to install and use ollama and open webui from termux
      ./installer.sh
      ```
 
-  The installer will use proot to install ubuntu with "ollama" alias, it will then install ollama and open webui using conda inside the proot distro.
-
+  The installer will use two different proot distros, one for ollama named "ollama" and another one for the UI's called "ui", it will use conda for the installation of open webui and oobabooga.
 
 ## Usage:
-Just execute the ollama.sh to start both servers.
-If you want to expose your ollama server to LAN, you can add export OLLAMA_HOST=0.0.0.0 at the begining of the ollama.sh script
+Just execute the run.sh to start and stop the servers.
+If you want to expose your ollama server to LAN, you can add export OLLAMA_HOST=0.0.0.0 in the run.sh script.
+Find this part:
+1)
+                        echo "Starting Ollama..."
+                        pd login ollama -- ollama serve &
+                        ;;
 
-## How to stop ollama and webui?
-pkill ollama && pkill webui
+And change it for this:
+1)
+                        echo "Starting Ollama..."
+                        export OLLAMA_HOST=0.0.0.0
+                        pd login ollama -- ollama serve &
+                        ;;
+
 
 ## Uninstall
-pd remove ollama
+pd remove ollama && pd remove ui
