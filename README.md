@@ -29,6 +29,10 @@ And change it for this:
                         pd login ollama -- ollama serve &
                         ;;
 
+big-AGI: localhost:8081
+open-webui: localhost:8080
+oobabooga: localhost:7860
+ollama: localhost:11434
 
 ## Uninstall
 pd remove ollama && pd remove ui
