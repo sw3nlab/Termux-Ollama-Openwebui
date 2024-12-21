@@ -50,7 +50,7 @@ while true; do
                         ;;
                     2)
                         echo "Starting Open WebUI..."
-                        pd login ui -- /root/miniconda3/envs/webui/bin/python3 /root/miniconda3/envs/webui/bin/open-webui serve &
+                        pd login ui -- /root/miniconda3/envs/webui/bin/python3 /root/miniconda3/envs/webui/bin/open-webui serve --port 8082 &
                         ;;
                     3)
                         echo "Starting Oobabooga..."
