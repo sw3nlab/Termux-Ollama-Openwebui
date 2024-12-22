@@ -16,6 +16,7 @@ Script to install and use ollama, open webui, big-AGI, fastsdcpu and oobabooga f
   The user can choose what they want to install from a simple menu
 
 ## Usage:
+<pre>
 Just execute the run.sh to start and stop the servers.
 If you want to expose your ollama server to LAN, you can add export OLLAMA_HOST=0.0.0.0 in the run.sh script.
 Find this part:
@@ -31,11 +32,14 @@ And change it for this:
                         pd login ollama -- ollama serve &
                         ;;
 
+For big-AGI to be accessible on LAN change -H 127.0.0.1 to -H 0.0.0.0
+For oobabooga to be accessible on LAN, add --listen after "--listen-port 7861"
+  
 big-AGI: localhost:8081
 open-webui: localhost:8082
 oobabooga: localhost:7861
 ollama: localhost:11434
 fastsdcpu: localhost:7860
-
+</pre>
 ## Uninstall
 pd remove ollama && pd remove ui
