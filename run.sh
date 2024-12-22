@@ -48,7 +48,7 @@ while true; do
                 case $choice in
                     1)
                         echo "Starting Ollama..."
-                        pd login ollama -- ollama serve &
+                        pd login ollama -- bash -c "ollama serve" &
                         ;;
                     2)
                         echo "Starting Open WebUI..."
