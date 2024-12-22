@@ -28,8 +28,8 @@ for choice in $choices; do
         1)
             echo "Installing Ollama..."
             pd install --override-alias ollama ubuntu
-            pd login ollama -- bash -c "apt update && apt upgrade -y && wget https://ollama.com/install.sh && bash /root/install.sh"
-            ;;
+            pd login ollama -- bash -c "apt update && apt upgrade -y && apt install ca-certificates -y && update-ca-certificates -v && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure ca-certificates && curl -fsSL https://ollama.com/install.sh | sh"
+	    ;;
         2)
             if [ "$ui_setup_done" = false ]; then
                 echo "Setting up UI environment..."
