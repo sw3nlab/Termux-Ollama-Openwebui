@@ -50,7 +50,7 @@ pd remove ollama && pd remove ui
   ollama
   open webui
   fastsdcpu
-  bog-AGI
+  big-AGI
   text-generation-webui oobabooga
   llamacpp
 </pre>
