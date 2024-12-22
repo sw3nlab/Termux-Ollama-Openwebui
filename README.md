@@ -14,6 +14,7 @@ Script to install and use ollama, open webui, big-AGI, fastsdcpu, llamacpp and o
      ```
 
   The installer will use two different proot distros, one for ollama named "ollama" and another one for the UI's called "ui", it will use conda for the installation of open webui, oobabooga and fastsdcpu.
+  Llamacpp will be installed on termux HOME folder, do not move the folder.
   The user can choose what they want to install from a simple menu
 
 ## Usage:
