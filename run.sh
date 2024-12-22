@@ -15,7 +15,8 @@ display_run_menu() {
     echo "2. Open WebUI"
     echo "3. Oobabooga"
     echo "4. Big-AGI"
-    echo "5. Back to main menu"
+    echo "5. fastsdcpu"
+    echo "6. Back to main menu"
 }
 
 # Function to display the menu for selecting utilities to stop
@@ -25,7 +26,8 @@ display_stop_menu() {
     echo "2. Open WebUI"
     echo "3. Oobabooga"
     echo "4. Big-AGI"
-    echo "5. Back to main menu"
+    echo "5. fastsdcpu"
+    echo "6. Back to main menu"
 }
 
 # Main script logic
@@ -54,13 +56,17 @@ while true; do
                         ;;
                     3)
                         echo "Starting Oobabooga..."
-                        pd login ui -- bash -c "cd text-generation-webui && /root/miniconda3/envs/textgen/bin/python3 server.py --listen --cpu" &
+                        pd login ui -- bash -c "cd text-generation-webui && /root/miniconda3/envs/textgen/bin/python3 server.py --listen --cpu --listen-port 7861" &
                         ;;
                     4)
                         echo "Starting Big-AGI..."
                         pd login ui -- bash -c "cd big-AGI && npx next start --port 8081 -H 0.0.0.0" &
                         ;;
-                    5)
+		    5)
+			echo "Starting fastsdcpu"
+			pd login ui -- bash -c "cd fastsdcpu && bash start-webui.sh" &
+                        ;;
+                    6)
                         break
                         ;;
                     *)
@@ -108,7 +114,11 @@ while true; do
                             fi
                         fi
                         ;;
-                    5)
+		    5)
+			echo "Stopping fastsdcpu"
+			pkill "/root/miniconda3/envs/fastsdcpu/bin/python3"
+                        ;;
+                    6)
                         break
                         ;;
                     *)
