@@ -7,7 +7,8 @@ display_menu() {
     echo "2. Open WebUI"
     echo "3. Oobabooga"
     echo "4. Big-AGI"
-    echo "5. Exit"
+    echo "5. fastsdcpu (stable diffusion cpu)"
+    echo "6. Exit"
 }
 
 # Display the menu
@@ -60,7 +61,25 @@ for choice in $choices; do
             pd login ui -- bash -c "apt install -y ca-certificates curl gnupg git && mkdir -p /etc/apt/keyrings && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && echo 'deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main' | tee /etc/apt/sources.list.d/nodesource.list && apt update && apt install nodejs -y"
             pd login ui -- bash -c "git clone --branch v2-dev https://github.com/enricoros/big-AGI.git && cd big-AGI && npm install -g npm@11.0.0 && npm install && npm run build"
             ;;
-        5)
+	5)
+            if [ "$ui_setup_done" = false ]; then
+                echo "Setting up UI environment..."
+                pd install --override-alias ui ubuntu
+                ui_setup_done=true
+            fi
+            echo "Installing fastsdcpu..."
+	    pd login ui -- bash -c "apt update && apt upgrade -y && curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh && bash /root/Miniconda3-latest-Linux-aarch64.sh -b -p /root/miniconda3"
+	    pd login ui -- bash -c "/root/miniconda3/bin/conda create -n fastsdcpu python=3.11 -y && apt update && apt upgrade -y && apt install ffmpeg git -y && git clone https://github.com/rupeshs/fastsdcpu.git"
+	    pd login ui -- bash -c "sed -i 's|PYTHON_COMMAND=\"python3\"|PYTHON_COMMAND=\"/root/miniconda3/envs/fastsdcpu/bin/python3\"|g' /root/fastsdcpu/install.sh"
+	    pd login ui -- bash -c "sed -i 's|PYTHON_COMMAND=\"python\"|PYTHON_COMMAND=\"/root/miniconda3/envs/fastsdcpu/bin/python3\"|g' /root/fastsdcpu/install.sh"
+	    pd login ui -- bash -c "sed -i '/\$PYTHON_COMMAND -m venv \"\$BASEDIR\/env\"/,+2d' /root/fastsdcpu/install.sh"
+	    pd login ui -- bash -c "sed -i 's|\\bpip\\b|/root/miniconda3/envs/fastsdcpu/bin/pip|g' /root/fastsdcpu/install.sh"
+	    pd login ui -- bash -c "sed -i '/source \"\\\$BASEDIR\\/env\\/bin\\/activate\"/d' /root/fastsdcpu/start-webui.sh"
+            pd login ui -- bash -c "sed -i 's|PYTHON_COMMAND=\"python3\"|PYTHON_COMMAND=\"/root/miniconda3/envs/fastsdcpu/bin/python3\"|g' /root/fastsdcpu/start-webui.sh"
+            pd login ui -- bash -c "sed -i 's|PYTHON_COMMAND=\"python\"|PYTHON_COMMAND=\"/root/miniconda3/envs/fastsdcpu/bin/python3\"|g' /root/fastsdcpu/start-webui.sh"
+ 	    pd login ui -- bash -c "cd fastsdcpu && chmod +x install.sh && ./install.sh --disable-gui"
+	    ;;
+        6)
             echo "Exiting."
             exit 0
             ;;
