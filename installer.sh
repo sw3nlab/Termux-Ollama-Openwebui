@@ -8,7 +8,8 @@ display_menu() {
     echo "3. Oobabooga"
     echo "4. Big-AGI"
     echo "5. fastsdcpu (stable diffusion cpu)"
-    echo "6. Exit"
+    echo "6. llama.cpp"
+    echo "7. Exit"
 }
 
 # Display the menu
@@ -29,7 +30,7 @@ for choice in $choices; do
             echo "Installing Ollama..."
             pd install --override-alias ollama ubuntu
             pd login ollama -- bash -c "apt update && apt upgrade -y && apt install ca-certificates -y && update-ca-certificates -v && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure ca-certificates && curl -fsSL https://ollama.com/install.sh | sh"
-	    ;;
+            ;;
         2)
             if [ "$ui_setup_done" = false ]; then
                 echo "Setting up UI environment..."
@@ -39,7 +40,6 @@ for choice in $choices; do
             echo "Setting up Open WebUI..."
             pd login ui -- bash -c "apt update && apt upgrade -y && curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh && bash /root/Miniconda3-latest-Linux-aarch64.sh -b -p /root/miniconda3" 
 	    pd login ui -- bash -c "/root/miniconda3/bin/conda create -n webui python=3.11 -y && /root/miniconda3/envs/webui/bin/pip install open-webui && apt install libsndfile1 libsndfile1-dev -y"
-
             ;;
         3)
             if [ "$ui_setup_done" = false ]; then
@@ -49,7 +49,7 @@ for choice in $choices; do
             fi
             echo "Installing Oobabooga..."
             pd login ui -- bash -c "apt update && apt upgrade -y && curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh && bash /root/Miniconda3-latest-Linux-aarch64.sh -b -p /root/miniconda3" 
-	    pd login ui -- bash -c "apt install build-essential cmake python3-dev libopenblas-dev ninja-build -y && /root/miniconda3/bin/conda create -n textgen python=3.11 -y && /root/miniconda3/envs/textgen/bin/pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu && apt install git -y && git clone https://github.com/oobabooga/text-generation-webui && cd text-generation-webui && /root/miniconda3/envs/textgen/bin/pip3 install -r requirements_cpu_only_noavx2.txt && CC=/usr/bin/gcc CXX=/usr/bin/g++ /root/miniconda3/envs/textgen/bin/pip3 install llama-cpp-python --no-cache-dir"
+	    pd login ui -- bash -c "/root/miniconda3/bin/conda create -n textgen python=3.11 -y && /root/miniconda3/envs/textgen/bin/pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu && apt install git -y && git clone https://github.com/oobabooga/text-generation-webui && cd text-generation-webui && /root/miniconda3/envs/textgen/bin/pip3 install -r requirements_cpu_only_noavx2.txt"
             ;;
         4)
             if [ "$ui_setup_done" = false ]; then
@@ -80,6 +80,13 @@ for choice in $choices; do
  	    pd login ui -- bash -c "cd fastsdcpu && chmod +x install.sh && ./install.sh --disable-gui"
 	    ;;
         6)
+            echo "Building llamacpp on termux"
+            apt update && apt install cmake git -y
+	    cd ~ && git clone https://github.com/ggerganov/llama.cpp
+            cd llama.cpp && mkdir models2 && cmake -B build && cmake --build build --config Release -j 8
+	    cd ~
+            ;;
+        7)
             echo "Exiting."
             exit 0
             ;;
