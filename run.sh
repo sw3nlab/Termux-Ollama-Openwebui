@@ -16,7 +16,9 @@ display_run_menu() {
     echo "3. Oobabooga"
     echo "4. Big-AGI"
     echo "5. fastsdcpu"
-    echo "6. Back to main menu"
+    echo "6. download llamacpp models"
+    echo "7. llamacpp (fastest)"
+    echo "8. Back to main menu"
 }
 
 # Function to display the menu for selecting utilities to stop
@@ -28,6 +30,40 @@ display_stop_menu() {
     echo "4. Big-AGI"
     echo "5. fastsdcpu"
     echo "6. Back to main menu"
+}
+
+display_download_menu() {
+    echo "Select utilities to stop (separate choices with spaces):"
+    echo "1. llama3.2 (3b)"
+    echo "2. qwen2.5 (7b)"
+    echo "3. llama3.1 (7b)"
+    echo "4. other"
+}
+
+display_llamacpp_models() {
+	dir=~/llama.cpp/models2
+	models=("$dir"/*)
+	if [ ${#models[@]} -eq 0 ]; then
+  	  echo "No models found in $dir."
+  	  exit 1
+	fi
+	echo "Available models:"
+	for i in "${!models[@]}"; do
+	    echo "$((i + 1)). ${models[$i]##*/}"
+	done
+	while true; do
+	    read -p "Enter the number of the model to use: " choice
+
+	    if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le ${#models[@]} ]; then
+	        selected_file="${models[$((choice - 1))]}"
+	        break
+	    else
+	        echo "Invalid choice. Please enter a number between 1 and ${#models[@]}."
+	    fi
+	done
+
+	echo "You selected: ${selected_file##*/}"
+	model_name="${selected_file##*/}"
 }
 
 # Main script logic
@@ -67,6 +103,32 @@ while true; do
 			pd login ui -- bash -c "cd fastsdcpu && bash start-webui.sh" &
                         ;;
                     6)
+			clear
+			display_download_menu
+                        read -p "Enter your choice: " action
+			    case $action in
+				1)
+                                    cd ~/llama.cpp/models2 && wget https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_0.gguf
+	                            ;;
+                                2)
+                                    cd ~/llama.cpp/models2 && wget https://huggingface.co/mradermacher/Qwen2.5-7B-Instruct-Uncensored-GGUF/resolve/main/Qwen2.5-7B-Instruct-Uncensored.Q4_K_M.gguf
+                                    ;;
+                                3)
+                                    cd ~/llama.cpp/models2 && wget https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
+                                    ;;
+                                4)
+				    read -p "Paste huggingface link: " link
+                                    cd ~/llama.cpp/models2 && wget $link
+                                    ;;
+			    esac
+                        ;;
+                    7)
+                        clear
+                        display_llamacpp_models
+                        read -p "context size: " context
+			~/llama.cpp/build/bin/llama-simple-chat -m ~/llama.cpp/models2/$model_name -c $context
+                        ;;
+                    8)
                         break
                         ;;
                     *)
