@@ -49,7 +49,7 @@ for choice in $choices; do
             fi
             echo "Installing Oobabooga..."
             pd login ui -- bash -c "apt update && apt upgrade -y && curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh && bash /root/Miniconda3-latest-Linux-aarch64.sh -b -p /root/miniconda3" 
-	    pd login ui -- bash -c "/root/miniconda3/bin/conda create -n textgen python=3.11 -y && /root/miniconda3/envs/textgen/bin/pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu && apt install git -y && git clone https://github.com/oobabooga/text-generation-webui && cd text-generation-webui && /root/miniconda3/envs/textgen/bin/pip3 install -r requirements_cpu_only_noavx2.txt"
+	    pd login ui -- bash -c "apt install build-essential cmake python3-dev libopenblas-dev ninja-build -y && /root/miniconda3/bin/conda create -n textgen python=3.11 -y && /root/miniconda3/envs/textgen/bin/pip3 install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1 --index-url https://download.pytorch.org/whl/cpu && apt install git -y && git clone https://github.com/oobabooga/text-generation-webui && cd text-generation-webui && /root/miniconda3/envs/textgen/bin/pip3 install -r requirements_cpu_only_noavx2.txt && CC=/usr/bin/gcc CXX=/usr/bin/g++ /root/miniconda3/envs/textgen/bin/pip3 install llama-cpp-python --no-cache-dir"
             ;;
         4)
             if [ "$ui_setup_done" = false ]; then
