@@ -1,7 +1,7 @@
 # Termux-doomsday-LLM
 Script to install and use ollama, open webui, big-AGI, fastsdcpu, llamacpp and oobabooga from termux
 
-*Added support for fastsdcpu, the first time generating an image will take some time because it needs to download the models, check the original repo to use different models https://github.com/rupeshs/fastsdcpu?tab=readme-ov-file#gguf-support
+*Added support for fastsdcpu, the first time generating an image will take long because it needs to download the models, check the original repo to use different models https://github.com/rupeshs/fastsdcpu?tab=readme-ov-file#gguf-support
 
 ## Installation:
   1.  Clone the repo and give execution permissions to the installer.sh script:
