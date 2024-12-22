@@ -56,11 +56,11 @@ while true; do
                         ;;
                     3)
                         echo "Starting Oobabooga..."
-                        pd login ui -- bash -c "cd text-generation-webui && /root/miniconda3/envs/textgen/bin/python3 server.py --listen --cpu --listen-port 7861" &
+                        pd login ui -- bash -c "cd text-generation-webui && /root/miniconda3/envs/textgen/bin/python3 server.py --cpu --listen-port 7861" &
                         ;;
                     4)
                         echo "Starting Big-AGI..."
-                        pd login ui -- bash -c "cd big-AGI && npx next start --port 8081 -H 0.0.0.0" &
+                        pd login ui -- bash -c "cd big-AGI && npx next start --port 8081 -H 127.0.0.1" &
                         ;;
 		    5)
 			echo "Starting fastsdcpu"
