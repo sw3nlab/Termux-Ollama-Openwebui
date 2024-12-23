@@ -125,8 +125,13 @@ while true; do
                     7)
                         clear
                         display_llamacpp_models
-                        read -p "context size: " context
-			~/llama.cpp/build/bin/llama-simple-chat -m ~/llama.cpp/models2/$model_name -c $context
+                        read -p "context size (default = 4096, 0 = loaded from model): " context
+			read -p "How many threads? (-1 to use all): " threads
+			read -p "Custom arguments: " arguments
+			eval set -- $arguments
+			~/llama.cpp/build/bin/llama-cli -m ~/llama.cpp/models2/$model_name -c $context -t $threads -cnv "$@"
+			echo "Menu will be back in 5 seconds"
+			sleep 5s
                         ;;
                     8)
                         break
