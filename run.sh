@@ -18,7 +18,8 @@ display_run_menu() {
     echo "5. fastsdcpu"
     echo "6. download llamacpp models"
     echo "7. llamacpp (fastest)"
-    echo "8. Back to main menu"
+    echo "8. Automatic 1111"
+    echo "9. Back to main menu"
 }
 
 # Function to display the menu for selecting utilities to stop
@@ -29,7 +30,8 @@ display_stop_menu() {
     echo "3. Oobabooga"
     echo "4. Big-AGI"
     echo "5. fastsdcpu"
-    echo "6. Back to main menu"
+    echo "6. Automatic 1111"
+    echo "7. Back to main menu"
 }
 
 display_download_menu() {
@@ -134,6 +136,9 @@ while true; do
 			sleep 5s
                         ;;
                     8)
+                        pd login --user auto ui -- bash -c "cd stable-diffusion-webui && ./webui.sh" &
+                        ;;
+                    9)
                         break
                         ;;
                     *)
@@ -186,6 +191,9 @@ while true; do
 			pkill "/root/miniconda3/envs/fastsdcpu/bin/python3"
                         ;;
                     6)
+                        pkill venv/bin/python
+                        ;;
+                    7)
                         break
                         ;;
                     *)
