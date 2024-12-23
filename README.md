@@ -62,6 +62,12 @@ Automatic 1111: localhost:7865
 ## Uninstall
 pd remove ollama && pd remove ui && rm -rf ~/llama.cpp
 
+## Add models to Automatic 1111:
+<pre>
+  pd login --user auto ui
+  cd stable-diffusion-webui/models
+  Download your models using wget and put them in the required folder
+</pre>
 ## Supported tools so far:
 <pre>
   ollama
