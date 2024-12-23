@@ -60,7 +60,7 @@ fastsdcpu: localhost:7860
 Automatic 1111: localhost:7865
 </pre>
 ## Uninstall
-pd remove ollama && pd remove ui
+pd remove ollama && pd remove ui && rm -rf ~/llama.cpp
 
 ## Supported tools so far:
 <pre>
