@@ -3,6 +3,8 @@ Script to install and use ollama, open webui, big-AGI, fastsdcpu, llamacpp, Auto
 
 *Added support for fastsdcpu, the first time generating an image will take long because it needs to download the models, check the original repo to use different models https://github.com/rupeshs/fastsdcpu?tab=readme-ov-file#gguf-support
 
+Automatic 1111 will also start the API by default so you are able to use it with SDAI app and the webui.
+
 ## Installation:
   1.  Clone the repo and give execution permissions to the installer.sh script:
      ```
