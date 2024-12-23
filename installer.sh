@@ -9,7 +9,7 @@ display_menu() {
     echo "4. Big-AGI"
     echo "5. fastsdcpu (stable diffusion cpu)"
     echo "6. llama.cpp"
-    echo "7. Automatic 1111 (after installing the server will start automatically, stop it with ctrl + c)"
+    echo "7. Automatic 1111 (after installing, the server will start automatically, stop it with ctrl + c)"
     echo "8. Exit"
 }
 
