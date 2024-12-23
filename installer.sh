@@ -9,7 +9,8 @@ display_menu() {
     echo "4. Big-AGI"
     echo "5. fastsdcpu (stable diffusion cpu)"
     echo "6. llama.cpp"
-    echo "7. Exit"
+    echo "7. Automatic 1111 (after installing the server will start automatically, stop it with ctrl + c)"
+    echo "8. Exit"
 }
 
 # Display the menu
@@ -86,7 +87,20 @@ for choice in $choices; do
             cd llama.cpp && mkdir models2 && cmake -B build && cmake --build build --config Release -j 8
 	    cd ~
             ;;
-        7)
+	7)
+            if [ "$ui_setup_done" = false ]; then
+                echo "Setting up UI environment..."
+                pd install --override-alias ui ubuntu
+                ui_setup_done=true
+            fi
+	    echo "Installing automatic 1111..."
+            pd login ui -- bash -c "apt update && apt upgrade -y && useradd -m -p '' auto --shell /bin/bash"
+            pd login --user auto ui -- bash -c "git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
+            pd login ui -- bash -c "apt install software-properties-common -y && yes | add-apt-repository ppa:deadsnakes/ppa && apt update && apt install wget git python3.11 python3.11-venv libgl1 libglib2.0-0 gcc python3.11-dev -y"
+            pd login ui -- bash -c "sed -i 's/#python_cmd=\"python3\"/python_cmd=\"python3.11\"/; s/#export COMMANDLINE_ARGS=\"\"/export COMMANDLINE_ARGS=\"--port 7865 --api --use-cpu all --precision full --no-half --skip-torch-cuda-test\"/' /home/auto/stable-diffusion-webui/webui-user.sh"
+            pd login --user auto ui -- bash -c "cd stable-diffusion-webui && chmod +x webui.sh && ./webui.sh"
+	    ;;
+        8)
             echo "Exiting."
             exit 0
             ;;
