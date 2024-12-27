@@ -19,7 +19,8 @@ display_run_menu() {
     echo "6. download llamacpp models"
     echo "7. llamacpp (fastest)"
     echo "8. Automatic 1111"
-    echo "9. Back to main menu"
+    echo "9. exo"
+    echo "10. Back to main menu"
 }
 
 # Function to display the menu for selecting utilities to stop
@@ -31,7 +32,8 @@ display_stop_menu() {
     echo "4. Big-AGI"
     echo "5. fastsdcpu"
     echo "6. Automatic 1111"
-    echo "7. Back to main menu"
+    echo "7. exo"
+    echo "8. Back to main menu"
 }
 
 display_download_menu() {
@@ -129,16 +131,20 @@ while true; do
                         display_llamacpp_models
                         read -p "context size (default = 4096, 0 = loaded from model): " context
 			read -p "How many threads? (-1 to use all): " threads
+			read -p "System prompt: " prompt
 			read -p "Custom arguments: " arguments
 			eval set -- $arguments
-			~/llama.cpp/build/bin/llama-cli -m ~/llama.cpp/models2/$model_name -c $context -t $threads -cnv "$@"
+			~/llama.cpp/build/bin/llama-cli -m ~/llama.cpp/models2/$model_name -c $context -t $threads -p $prompt -cnv "$@"
 			echo "Menu will be back in 5 seconds"
 			sleep 5s
                         ;;
                     8)
                         pd login --user auto ui -- bash -c "cd stable-diffusion-webui && ./webui.sh" &
                         ;;
-                    9)
+		    9)
+                        pd login ui -- bash -c "cd exo && CLANG=1 pipenv run exo" &
+                        ;;
+                    10)
                         break
                         ;;
                     *)
@@ -194,6 +200,9 @@ while true; do
                         pkill venv/bin/python
                         ;;
                     7)
+                        pkill exo
+                        ;;
+                    8)
                         break
                         ;;
                     *)
