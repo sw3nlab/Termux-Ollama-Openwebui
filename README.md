@@ -60,7 +60,7 @@ fastsdcpu: localhost:7860
 Automatic 1111: localhost:7865
 </pre>
 ## Uninstall
-pd remove ollama && pd remove ui && rm -rf ~/llama.cpp
+pd remove ollama && pd remove ui && pd remove exo && rm -rf ~/llama.cpp
 
 ## Add models to Automatic 1111:
 <pre>
