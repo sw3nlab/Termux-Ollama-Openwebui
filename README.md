@@ -1,5 +1,5 @@
 # Termux-doomsday-LLM
-Script to install and use ollama, open webui, big-AGI, fastsdcpu, llamacpp, Automatic 1111 and text-generation-webui oobabooga from termux
+Script to install and use ollama, open webui, big-AGI, fastsdcpu, llamacpp, Automatic 1111, exo and text-generation-webui oobabooga from termux
 
 *Added support for fastsdcpu, the first time generating an image will take long because it needs to download the models, check the original repo to use different models https://github.com/rupeshs/fastsdcpu?tab=readme-ov-file#gguf-support
 
@@ -77,4 +77,5 @@ pd remove ollama && pd remove ui && rm -rf ~/llama.cpp
   text-generation-webui oobabooga
   llamacpp
   Automatic 1111
+  exo
 </pre>
