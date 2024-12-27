@@ -89,13 +89,9 @@ for choice in $choices; do
 	    cd ~
             ;;
         7)
-            if [ "$ui_setup_done" = false ]; then
-                echo "Setting up UI environment..."
-                pd install --override-alias ui ubuntu
-                ui_setup_done=true
-            fi
+            pd install --override-alias exo ubuntu
             echo "Installing exo..."
-            pd login ui -- bash -c "apt update && apt upgrade -y && apt install libglib2.0-0 libgl1 python3 python3-pip pipenv -y && git clone https://github.com/exo-explore/exo.git && cd exo && pipenv lock && pipenv install . torch flax"
+            pd login exo -- bash -c "apt update && apt upgrade -y && apt install libglib2.0-0 libgl1 python3 python3-pip pipenv -y && git clone https://github.com/exo-explore/exo.git && cd exo && pipenv lock && pipenv install . torch flax"
             ;;
 	8)
             if [ "$ui_setup_done" = false ]; then
