@@ -142,7 +142,7 @@ while true; do
                         pd login --user auto ui -- bash -c "cd stable-diffusion-webui && ./webui.sh" &
                         ;;
 		    9)
-                        pd login ui -- bash -c "cd exo && CLANG=1 pipenv run exo" &
+                        pd login exo -- bash -c "cd exo && CLANG=1 pipenv run exo" &
                         ;;
                     10)
                         break
