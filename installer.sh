@@ -103,7 +103,7 @@ for choice in $choices; do
             pd login ui -- bash -c "apt update && apt upgrade -y && useradd -m -p '' auto --shell /bin/bash"
             pd login --user auto ui -- bash -c "git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
             pd login ui -- bash -c "apt install software-properties-common -y && yes | add-apt-repository ppa:deadsnakes/ppa && apt update && apt install wget git python3.11 python3.11-venv libgl1 libglib2.0-0 gcc python3.11-dev -y"
-            pd login ui -- bash -c "sed -i 's/#python_cmd=\"python3\"/python_cmd=\"python3.11\"/; s/#export COMMANDLINE_ARGS=\"\"/export COMMANDLINE_ARGS=\"--port 7865 --api --use-cpu all --precision full --no-half --skip-torch-cuda-test\"/' /home/auto/stable-diffusion-webui/webui-user.sh"
+            pd login ui -- bash -c "sed -i 's/#python_cmd=\"python3\"/python_cmd=\"python3.11\"/; s/#export COMMANDLINE_ARGS=\"\"/export COMMANDLINE_ARGS=\"--port 7865 --api --use-cpu all --precision full --no-half --skip-torch-cuda-test --skip-load-model-at-start\"/' /home/auto/stable-diffusion-webui/webui-user.sh"
             pd login --user auto ui -- bash -c "cd stable-diffusion-webui && chmod +x webui.sh && ./webui.sh"
 	    ;;
         9)
